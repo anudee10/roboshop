@@ -1,8 +1,10 @@
 #!/bin/bash
 
+
 DATE=$(date +%f-%H-%M-%S)
+LOGDIR=/tmp
 script_name=$0
-LOGFILE=/tmp/$script_name-$DATE.log
+LOGFILE=$LOGSDIR/$0-$DATE.log
 
 R="\e[31m"
 G="\e[32m"
@@ -33,13 +35,25 @@ VALIDATE $? "NODEJS INSTALLED"
 
 useradd roboshop &>>$LOGFILE
 
+VALIDATE $? "ROBOSHOP ADDED"
+
+
 mkdir /app &>>$LOGFILE
+
 
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip  &>>$LOGFILE
 
+VALIDATE $? "downloading catalogue artifact"
+
+
+
 cd /app &>>$LOGFILE
 
+
 unzip /tmp/catalogue.zip &>>$LOGFILE
+
+VALIDATE $? "UNZIPPED COMPLETED"
+
 
 npm install &>>$LOGFILE
 
@@ -47,11 +61,16 @@ VALIDATE $? "NPM INSTALLED"
 
 cp /home/centos/roboshop/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 
+VALIDATE $? "copying catalogue"
+
 systemctl daemon-reload &>>$LOGFILE
+VALIDATE $? "daemon reloaded"
 
 systemctl enable catalogue &>>$LOGFILE
+VALIDATE $? "catalogue enabled"
 
 systemctl start catalogue &>>$LOGFILE
+VALIDATE $? "catalogue started"
 
 cp  /home/centos/roboshop/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 

@@ -27,38 +27,38 @@ fi
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$LOGFILE
 
-yum install nodejs -y  &>>$LOGFILE
+yum install nodejs -y &>>$LOGFILE
 
 VALIDATE $? "NODEJS INSTALLED"
 
-useradd roboshop  &>>$LOGFILE
+useradd roboshop &>>$LOGFILE
 
-mkdir /app  &>>$LOGFILE
+mkdir /app &>>$LOGFILE
 
-curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip   &>>$LOGFILE
+curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip  &>>$LOGFILE
 
-cd /app   &>>$LOGFILE
+cd /app &>>$LOGFILE
 
-unzip /tmp/catalogue.zip  &>>$LOGFILE
+unzip /tmp/catalogue.zip &>>$LOGFILE
 
-npm install   &>>$LOGFILE
+npm install &>>$LOGFILE
 
 VALIDATE $? "NPM INSTALLED"
 
-cp /home/centos/roboshop/catalogue.service /etc/systemd/system/catalogue.service  &>>$LOGFILE
+cp /home/centos/roboshop/catalogue.service /etc/systemd/system/catalogue.service &>>$LOGFILE
 
-systemctl daemon-reload  &>>$LOGFILE
+systemctl daemon-reload &>>$LOGFILE
 
-systemctl enable catalogue  &>>$LOGFILE
+systemctl enable catalogue &>>$LOGFILE
 
-systemctl start catalogue  &>>$LOGFILE
+systemctl start catalogue &>>$LOGFILE
 
-cp  /home/centos/roboshop/mongo.repo /etc/yum.repos.d/mongo.repo  &>>$LOGFILE
+cp  /home/centos/roboshop/mongo.repo /etc/yum.repos.d/mongo.repo &>>$LOGFILE
 
-yum install mongodb-org-shell -y  &>>$LOGFILE
+yum install mongodb-org-shell -y &>>$LOGFILE
 
-VALIDATE $? "SHELL INSTALLED"
+VALIDATE $? "MONGO CLIENT INSTALLED"
 
-mongo --host mongodb.pracricedevops.online </app/schema/catalogue.js  &>>$LOGFILE
+mongo --host mongodb.pracricedevops.online </app/schema/catalogue.js &>>$LOGFILE
 
 VALIDATE $? "loading catalogue data into mongodb"

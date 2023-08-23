@@ -45,7 +45,7 @@ npm install   &>>$LOGFILE
 
 VALIDATE $? "NPM INSTALLED"
 
-cp /home/centos/roboshop /etc/systemd/system/catalogue.service  &>>$LOGFILE
+cp /home/centos/roboshop/catalogue.service /etc/systemd/system/catalogue.service  &>>$LOGFILE
 
 systemctl daemon-reload  &>>$LOGFILE
 
@@ -53,10 +53,12 @@ systemctl enable catalogue  &>>$LOGFILE
 
 systemctl start catalogue  &>>$LOGFILE
 
-cp  /home/centos/roboshop /etc/yum.repos.d/mongo.repo  &>>$LOGFILE
+cp  /home/centos/roboshop/mongo.repo /etc/yum.repos.d/mongo.repo  &>>$LOGFILE
 
 yum install mongodb-org-shell -y  &>>$LOGFILE
 
 VALIDATE $? "SHELL INSTALLED"
 
 mongo --host mongodb.pracricedevops.online </app/schema/catalogue.js  &>>$LOGFILE
+
+VALIDATE $? "loading catalogue data into mongodb"

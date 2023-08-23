@@ -35,8 +35,6 @@ VALIDATE $? "NODEJS INSTALLED"
 
 useradd roboshop &>>$LOGFILE
 
-VALIDATE $? "ROBOSHOP ADDED"
-
 
 mkdir /app &>>$LOGFILE
 

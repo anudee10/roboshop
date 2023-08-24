@@ -5,7 +5,11 @@ INSTANCE_TYPE=""
 IMAGE_ID=ami-03265a0778a880afb
 SECURITY_GROUP_ID=sg-079d47d85da489f20
 DOMAIN_NAME=pracricedevops.online
- echo "instance:$NAMES"
+ 
+ for i in "$NAMES"
+ do
+    echo "instance: $i"
+done
 
 # #for i in "${NAMES[@]}"
 # do  

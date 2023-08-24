@@ -6,7 +6,7 @@ NAMES=("mongodb" "redis" "mysql" "rabbitmq" "catalogue" "user" "cart" "shipping"
 # SECURITY_GROUP_ID=sg-079d47d85da489f20
 # DOMAIN_NAME=pracricedevops.online
  
- for i in "{$NAMES}"
+ for i in "${NAMES[@]}"
  do
     echo "instance: $i"
 done
